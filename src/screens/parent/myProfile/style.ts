@@ -91,4 +91,67 @@ export const styles = StyleSheet.create({
     fontSize: TYPOGRAPHY.fontSize.md,
     color: COLORS.dark,
   },
+
+  
+  // =====================================================
+  // EDIT PROFILE INPUT FIELDS
+  // =====================================================
+
+  fieldContainer: {
+    marginBottom: SPACING.md,
+  },
+
+  label: {
+    fontFamily: TYPOGRAPHY.fontFamily.regular,
+    fontSize: TYPOGRAPHY.fontSize.sm,
+    color: COLORS.textSecondary,
+    marginBottom: SPACING.xs,
+  },
+
+  input: {
+    minHeight: 46,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    borderRadius: RADIUS.md,
+    paddingHorizontal: SPACING.md,
+    paddingVertical: SPACING.sm,
+    backgroundColor: COLORS.background,
+    color: COLORS.textPrimary,
+    fontFamily: TYPOGRAPHY.fontFamily.regular,
+    fontSize: TYPOGRAPHY.fontSize.sm,
+  },
+
+  multilineInput: {
+    minHeight: 88,
+    paddingTop: SPACING.md,
+  },
+
+  inputError: {
+    borderColor: COLORS.danger,
+  },
+
+  errorText: {
+    color: COLORS.danger,
+    fontFamily: TYPOGRAPHY.fontFamily.regular,
+    fontSize: TYPOGRAPHY.fontSize.xs,
+    marginTop: SPACING.xs,
+  },
+
+  // =====================================================
+  // CANCEL BUTTON
+  // =====================================================
+
+  cancelButton: {
+    marginTop: SPACING.sm,
+    paddingVertical: SPACING.md,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  cancelButtonText: {
+    fontFamily: TYPOGRAPHY.fontFamily.medium,
+    fontSize: TYPOGRAPHY.fontSize.md,
+    color: COLORS.textSecondary,
+  },
+
 });

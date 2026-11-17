@@ -46,11 +46,11 @@ export default function AttendanceScreen() {
 
   return (
     <View style={styles.container}>
-      <ScrollView
-        style={styles.scrollView}
-        contentContainerStyle={styles.scrollContent}
-        showsVerticalScrollIndicator={false}
-      >
+    <ScrollView
+      style={styles.scrollView}
+      contentContainerStyle={styles.scrollContent}
+      showsVerticalScrollIndicator={false}
+    >
         {/* =============================================================== */}
         {/* Child Selector */}
         {/* =============================================================== */}
@@ -196,7 +196,9 @@ export default function AttendanceScreen() {
           </View>
         ))}
 
-        {/* =============================================================== */}
+       
+      </ScrollView>
+       {/* =============================================================== */}
         {/* Apply Leave Exemption */}
         {/* =============================================================== */}
 
@@ -209,7 +211,6 @@ export default function AttendanceScreen() {
             }}
           />
         </View>
-      </ScrollView>
     </View>
   );
 }

@@ -1,3 +1,4 @@
+
 import { Ionicons } from "@expo/vector-icons";
 import {
   Image,
@@ -6,13 +7,9 @@ import {
   View,
 } from "react-native";
 
-import {
-  SafeAreaView,
-} from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-import {
-  useNavigation,
-} from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
 import { COLORS } from "../../theme/colors";
 
@@ -27,7 +24,6 @@ const Header = ({
   title,
   isHome = false,
 }: HeaderProps) => {
-
   const navigation = useNavigation<any>();
 
   // =========================================================
@@ -35,7 +31,19 @@ const Header = ({
   // =========================================================
 
   const handleMenuPress = () => {
-    navigation.getParent()?.openDrawer();
+    let currentNavigation: any = navigation;
+
+    while (currentNavigation) {
+      const state = currentNavigation.getState?.();
+
+      if (state?.type === "drawer") {
+        currentNavigation.openDrawer();
+        return;
+      }
+
+      currentNavigation =
+        currentNavigation.getParent?.();
+    }
   };
 
   // =========================================================
@@ -53,25 +61,41 @@ const Header = ({
   // =========================================================
 
   const handleNotificationPress = () => {
-    navigation.navigate("Notifications");
+    let currentNavigation: any = navigation;
+
+    while (currentNavigation) {
+      const state = currentNavigation.getState?.();
+
+      if (
+        state?.routeNames?.includes("Notifications")
+      ) {
+        currentNavigation.navigate("Notifications");
+        return;
+      }
+
+      currentNavigation =
+        currentNavigation.getParent?.();
+    }
+
+    console.warn(
+      "Notifications route was not found in ParentStackNavigator."
+    );
   };
+
+  // =========================================================
+  // UI
+  // =========================================================
 
   return (
     <SafeAreaView
       edges={["top"]}
       style={styles.safeArea}
     >
-
       <View style={styles.header}>
-
-        {/* ===================================================
-            LEFT
-        ==================================================== */}
+        {/* LEFT */}
 
         <View style={styles.leftContainer}>
-
           {isHome ? (
-
             <>
               {/* MENU */}
 
@@ -79,6 +103,8 @@ const Header = ({
                 onPress={handleMenuPress}
                 style={styles.menuButton}
                 hitSlop={10}
+                accessibilityRole="button"
+                accessibilityLabel="Open menu"
               >
                 <Ionicons
                   name="menu"
@@ -97,17 +123,16 @@ const Header = ({
                 resizeMode="contain"
               />
             </>
-
           ) : (
-
             <View style={styles.titleContainer}>
-
               {/* BACK */}
 
               <Pressable
                 onPress={handleBack}
                 style={styles.backButton}
                 hitSlop={10}
+                accessibilityRole="button"
+                accessibilityLabel="Go back"
               >
                 <Ionicons
                   name="chevron-back"
@@ -121,22 +146,18 @@ const Header = ({
               <Text style={styles.title}>
                 {title}
               </Text>
-
             </View>
-
           )}
-
         </View>
 
-
-        {/* ===================================================
-            NOTIFICATION
-        ==================================================== */}
+        {/* NOTIFICATION */}
 
         <Pressable
           onPress={handleNotificationPress}
           style={styles.iconContainer}
           hitSlop={10}
+          accessibilityRole="button"
+          accessibilityLabel="Open notifications"
         >
           <Ionicons
             name="notifications-outline"
@@ -144,9 +165,7 @@ const Header = ({
             color={COLORS.white}
           />
         </Pressable>
-
       </View>
-
     </SafeAreaView>
   );
 };

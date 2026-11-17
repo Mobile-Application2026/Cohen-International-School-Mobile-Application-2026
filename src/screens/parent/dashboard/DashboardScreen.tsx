@@ -12,6 +12,7 @@ import { styles } from './styles';
 
 // Parent Context
 import { useParent } from '../../../context/ParentContext';
+import { useNavigation } from '@react-navigation/native';
 
 // Reusable dashboard components
 import DashboardStatCard from '../../../components/cards/DashboardStatCard';
@@ -22,6 +23,7 @@ import DashboardActionCard from '../../../components/cards/DashboardActionCard';
 // ---------------------------------------------------------------------------
 
 export default function DashboardScreen() {
+  const navigation = useNavigation<any>();
 
   // -------------------------------------------------------------------------
   // Parent Context
@@ -365,13 +367,16 @@ export default function DashboardScreen() {
           </Text>
 
 
-          <TouchableOpacity
-            activeOpacity={0.7}
-          >
-            <Text style={styles.sectionLink}>
-              Full timetable
-            </Text>
-          </TouchableOpacity>
+        
+<TouchableOpacity
+  activeOpacity={0.7}
+  onPress={() => navigation.navigate('Timetable')}
+>
+  <Text style={styles.sectionLink}>
+    Full timetable
+  </Text>
+</TouchableOpacity>
+
 
         </View>
 
@@ -476,15 +481,17 @@ export default function DashboardScreen() {
           />
 
 
-          <DashboardActionCard
-            title="Live GPS bus tracking"
-            subtitle="Route #4 · Telemetry active"
-            icon="bus-outline"
-            iconColor={COLORS.primary}
-            onPress={() => {
-              // Navigate to bus tracking screen
-            }}
-          />
+         
+<DashboardActionCard
+  title="Live GPS bus tracking"
+  subtitle="Route #4 · Telemetry active"
+  icon="bus-outline"
+  iconColor={COLORS.primary}
+  onPress={() => {
+    navigation.getParent()?.navigate('BusTracking');
+  }}
+/>
+
 
 
           <DashboardActionCard

@@ -1,3 +1,4 @@
+
 import { StyleSheet } from 'react-native';
 
 import {
@@ -28,10 +29,10 @@ export const styles = StyleSheet.create({
   },
 
   scrollContent: {
-    paddingHorizontal: SPACING.lg,
-    paddingTop: SPACING.md,
-    paddingBottom: SPACING.xxxl,
-  },
+  paddingHorizontal: SPACING.lg,
+  paddingTop: SPACING.sm,
+  paddingBottom: SPACING.lg,
+},
 
   // -----------------------------------------------------------------------
   // Empty State
@@ -55,7 +56,7 @@ export const styles = StyleSheet.create({
   // -----------------------------------------------------------------------
 
   childTabsWrapper: {
-    marginBottom: SPACING.md,
+    marginBottom: SPACING.sm,
   },
 
   childTabsContent: {
@@ -63,13 +64,10 @@ export const styles = StyleSheet.create({
   },
 
   childTab: {
-    paddingVertical: SPACING.sm,
-    paddingHorizontal: SPACING.lg,
-
+    paddingVertical: SPACING.xs,
+    paddingHorizontal: SPACING.md,
     borderRadius: RADIUS.round,
-
     backgroundColor: COLORS.backgroundLight,
-
     borderWidth: 1,
     borderColor: COLORS.border,
   },
@@ -81,9 +79,7 @@ export const styles = StyleSheet.create({
 
   childTabText: {
     fontFamily: TYPOGRAPHY.fontFamily.medium,
-
     fontSize: TYPOGRAPHY.fontSize.sm,
-
     color: COLORS.textPrimary,
   },
 
@@ -97,17 +93,13 @@ export const styles = StyleSheet.create({
 
   wardLine: {
     fontFamily: TYPOGRAPHY.fontFamily.regular,
-
     fontSize: TYPOGRAPHY.fontSize.sm,
-
     color: COLORS.textSecondary,
-
-    marginBottom: SPACING.md,
+    marginBottom: SPACING.sm,
   },
 
   wardName: {
     fontFamily: TYPOGRAPHY.fontFamily.semiBold,
-
     color: COLORS.textPrimary,
   },
 
@@ -117,40 +109,28 @@ export const styles = StyleSheet.create({
 
   statsRow: {
     flexDirection: 'row',
-
     gap: SPACING.sm,
-
-    marginBottom: SPACING.lg,
+    marginBottom: SPACING.md,
   },
 
   statCard: {
     flex: 1,
-
-    minHeight: 82,
-
+    minHeight: 70,
     backgroundColor: COLORS.white,
-
     borderRadius: RADIUS.lg,
-
     borderWidth: 1,
     borderColor: COLORS.border,
-
-    paddingVertical: SPACING.sm,
+    paddingVertical: SPACING.xs,
     paddingHorizontal: SPACING.xs,
-
     alignItems: 'center',
     justifyContent: 'center',
-
     ...SHADOWS.card,
   },
 
   statValue: {
     fontFamily: TYPOGRAPHY.fontFamily.headingSemiBold,
-
     fontSize: TYPOGRAPHY.fontSize.lg,
-
     marginBottom: 2,
-
     textAlign: 'center',
   },
 
@@ -168,11 +148,8 @@ export const styles = StyleSheet.create({
 
   statLabel: {
     fontFamily: TYPOGRAPHY.fontFamily.regular,
-
     fontSize: TYPOGRAPHY.fontSize.xs,
-
     color: COLORS.textMuted,
-
     textAlign: 'center',
   },
 
@@ -182,12 +159,9 @@ export const styles = StyleSheet.create({
 
   sectionTitle: {
     fontFamily: TYPOGRAPHY.fontFamily.semiBold,
-
     fontSize: TYPOGRAPHY.fontSize.md,
-
     color: COLORS.textPrimary,
-
-    marginBottom: SPACING.md,
+    marginBottom: SPACING.sm,
   },
 
   // -----------------------------------------------------------------------
@@ -196,45 +170,32 @@ export const styles = StyleSheet.create({
 
   logCard: {
     flexDirection: 'row',
-
     alignItems: 'center',
-
     justifyContent: 'space-between',
-
     backgroundColor: COLORS.card,
-
     borderRadius: RADIUS.lg,
-
-    padding: SPACING.md,
-
-    marginBottom: SPACING.sm,
-
+    paddingVertical: SPACING.sm,
+    paddingHorizontal: SPACING.md,
+    marginBottom: SPACING.xs,
     ...SHADOWS.card,
   },
 
   logInfo: {
     flex: 1,
-
     paddingRight: SPACING.sm,
-
     minWidth: 0,
   },
 
   logDate: {
     fontFamily: TYPOGRAPHY.fontFamily.semiBold,
-
     fontSize: TYPOGRAPHY.fontSize.sm,
-
     color: COLORS.textPrimary,
-
     marginBottom: 2,
   },
 
   logTime: {
     fontFamily: TYPOGRAPHY.fontFamily.regular,
-
     fontSize: TYPOGRAPHY.fontSize.xs,
-
     color: COLORS.textMuted,
   },
 
@@ -244,18 +205,14 @@ export const styles = StyleSheet.create({
 
   statusPill: {
     backgroundColor: 'rgba(76, 175, 112, 0.12)',
-
     borderRadius: RADIUS.round,
-
-    paddingVertical: SPACING.xs,
-    paddingHorizontal: SPACING.md,
+    paddingVertical: 3,
+    paddingHorizontal: SPACING.sm,
   },
 
   statusPillText: {
     fontFamily: TYPOGRAPHY.fontFamily.semiBold,
-
     fontSize: TYPOGRAPHY.fontSize.xs,
-
     color: COLORS.success,
   },
 
@@ -263,8 +220,12 @@ export const styles = StyleSheet.create({
   // Leave Button
   // -----------------------------------------------------------------------
 
-  leaveButtonWrapper: {
-    marginTop: SPACING.sm,
-  },
+  
+leaveButtonWrapper: {
+  paddingHorizontal: SPACING.lg,
+  paddingTop: SPACING.sm,
+  paddingBottom: SPACING.md,
+  backgroundColor: COLORS.background,
+},
 
 });

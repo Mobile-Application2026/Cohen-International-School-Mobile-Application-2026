@@ -1,3 +1,4 @@
+
 import React from "react";
 
 import {
@@ -15,81 +16,44 @@ import {
 import AdminDrawerNavigator
   from "./admin/AdminDrawerNavigator";
 
-import ParentDrawerNavigator
-  from "./Parent/ParentDrawerNavigator";
+import ParentStackNavigator
+  from "./Parent/ParentStackNavigator";
 
-
-const Stack =
-  createNativeStackNavigator();
-
+const Stack = createNativeStackNavigator();
 
 export default function MainNavigator() {
-
-  const {
-    user,
-  } = useAuth();
-
+  const { user } = useAuth();
 
   // =====================================================
-  // ADMIN
+  // ADMIN MODULE
   // =====================================================
 
   if (user?.role === "admin") {
-
     return (
-
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
         }}
       >
-
         <Stack.Screen
           name="AdminDrawer"
-          component={
-            AdminDrawerNavigator
-          }
+          component={AdminDrawerNavigator}
         />
-
       </Stack.Navigator>
-
     );
-
   }
 
-
   // =====================================================
-  // PARENT
+  // PARENT MODULE
   // =====================================================
 
   if (user?.role === "parent") {
-
     return (
-
       <ParentProvider>
-
-        <Stack.Navigator
-          screenOptions={{
-            headerShown: false,
-          }}
-        >
-
-          <Stack.Screen
-            name="ParentDrawer"
-            component={
-              ParentDrawerNavigator
-            }
-          />
-
-        </Stack.Navigator>
-
+        <ParentStackNavigator />
       </ParentProvider>
-
     );
-
   }
 
-
   return null;
-
 }

@@ -12,6 +12,9 @@ export const COLORS = {
   // Lighter shade for highlights
   primaryLight: "#E0C45A",
 
+  // Soft gold background (chips, badges, unread highlight)
+  primaryTint: "#FBF3D5",
+
   // ==========================================
   // APPLICATION BACKGROUND
   // ==========================================
@@ -98,6 +101,44 @@ export const COLORS = {
   absent: "#E85D5D",
 
   late: "#F4A62A",
+
+  // ==========================================
+  // EXTRA ACCENT COLORS
+  // ==========================================
+
+  // Purple (events, activities)
+  purple: "#7B5CD6",
+
+  // Teal (transport, bus tracking)
+  teal: "#14A3A3",
+
+  // ==========================================
+  // SOFT TINTS (solid light backgrounds for icon
+  // wraps, chips and badges — use with the color
+  // of the same name)
+  // ==========================================
+
+  successTint: "#E3F4EA",
+
+  warningTint: "#FDEFD6",
+
+  dangerTint: "#FCE4E4",
+
+  infoTint: "#E1EDFB",
+
+  purpleTint: "#ECE7FA",
+
+  tealTint: "#DAF2F2",
+
+  // ==========================================
+  // NOTIFICATIONS / CHIPS
+  // ==========================================
+
+  // Background of an unread notification card
+  unreadBackground: "#FFFBEA",
+
+  // Background of inactive filter chips / tabs
+  chipBackground: "#EEF1F4",
 
   // ==========================================
   // OTHER

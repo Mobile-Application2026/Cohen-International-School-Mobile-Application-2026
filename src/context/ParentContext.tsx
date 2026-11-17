@@ -1,3 +1,4 @@
+
 import React, {
   createContext,
   useContext,
@@ -43,6 +44,8 @@ interface ParentContextType {
   // -------------------------------------------------------------------------
 
   parent: ParentProfile;
+
+  updateParent: (updatedParent: ParentProfile) => void;
 
   // -------------------------------------------------------------------------
   // Bus Tracking
@@ -90,6 +93,24 @@ export const ParentProvider = ({
 }: ParentProviderProps) => {
 
   // -------------------------------------------------------------------------
+  // Parent Profile State
+  // -------------------------------------------------------------------------
+
+  const [parent, setParent] = useState<ParentProfile>(
+    PARENT_PROFILE
+  );
+
+  // -------------------------------------------------------------------------
+  // Update Parent Profile
+  // -------------------------------------------------------------------------
+
+  const updateParent = (
+    updatedParent: ParentProfile
+  ) => {
+    setParent(updatedParent);
+  };
+
+  // -------------------------------------------------------------------------
   // Initially select the first child
   // -------------------------------------------------------------------------
 
@@ -107,14 +128,11 @@ export const ParentProvider = ({
   // -------------------------------------------------------------------------
 
   const selectedChild = useMemo(() => {
-
     return (
       CHILDREN_DATA.find(
-        (child) =>
-          child.id === selectedChildId
+        (child) => child.id === selectedChildId
       ) ?? null
     );
-
   }, [selectedChildId]);
 
   // -------------------------------------------------------------------------
@@ -124,13 +142,11 @@ export const ParentProvider = ({
   const selectChild = (
     childId: string
   ) => {
-
     setSelectedChildId(childId);
-
   };
 
   // -------------------------------------------------------------------------
-  // Context value
+  // Context Value
   // -------------------------------------------------------------------------
 
   const value: ParentContextType = {
@@ -151,7 +167,9 @@ export const ParentProvider = ({
     // Parent Data
     // -----------------------------------------------------------------------
 
-    parent: PARENT_PROFILE,
+    parent,
+
+    updateParent,
 
     // -----------------------------------------------------------------------
     // Bus Tracking
@@ -194,17 +212,12 @@ export const ParentProvider = ({
 // ---------------------------------------------------------------------------
 
 export const useParent = () => {
-
-  const context = useContext(
-    ParentContext
-  );
+  const context = useContext(ParentContext);
 
   if (!context) {
-
     throw new Error(
       'useParent must be used inside ParentProvider'
     );
-
   }
 
   return context;

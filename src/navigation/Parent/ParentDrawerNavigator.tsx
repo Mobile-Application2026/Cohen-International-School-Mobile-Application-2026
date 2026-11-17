@@ -16,7 +16,11 @@ import {
 
 import {
   DrawerActions,
+  CommonActions,
 } from "@react-navigation/native";
+
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useAuth } from "../../context/AuthContext";
 
 import {
   Ionicons,
@@ -45,6 +49,8 @@ import MyProfileScreen
 
 import TeacherMessagesScreen
   from "../../screens/parent/teacherMessages/TeacherMessagesScreen";
+  import EditProfileScreen
+  from '../../screens/parent/myProfile/EditProfileScreen';
 
 import Header
   from "../../components/Header/Header";
@@ -56,10 +62,8 @@ import {
   RADIUS,
 } from "../../theme";
 
-
 const Drawer =
   createDrawerNavigator();
-
 
 // =====================================================
 // DRAWER ITEM TYPE
@@ -71,7 +75,6 @@ type DrawerItemProps = {
   onPress: () => void;
 };
 
-
 // =====================================================
 // DRAWER ITEM
 // =====================================================
@@ -81,14 +84,12 @@ const DrawerItem = ({
   label,
   onPress,
 }: DrawerItemProps) => {
-
   return (
     <TouchableOpacity
       style={styles.drawerItem}
       onPress={onPress}
       activeOpacity={0.7}
     >
-
       <Ionicons
         name={icon}
         size={21}
@@ -98,11 +99,9 @@ const DrawerItem = ({
       <Text style={styles.drawerItemText}>
         {label}
       </Text>
-
     </TouchableOpacity>
   );
 };
-
 
 // =====================================================
 // DRAWER CONTENT
@@ -111,7 +110,8 @@ const DrawerItem = ({
 const ParentDrawerContent = (
   props: DrawerContentComponentProps
 ) => {
-
+  const insets = useSafeAreaInsets();
+const { logout } = useAuth();
   // ===================================================
   // NAVIGATION
   // ===================================================
@@ -119,7 +119,6 @@ const ParentDrawerContent = (
   const navigateToScreen = (
     screenName: string
   ) => {
-
     props.navigation.dispatch(
       DrawerActions.closeDrawer()
     );
@@ -129,49 +128,59 @@ const ParentDrawerContent = (
     );
   };
 
+  // ===================================================
+  // DEMO LOGOUT
+  // ===================================================
 
+  const handleSignOut = async () => {
+  await logout();
+};
   return (
-
     <View style={styles.container}>
 
       {/* =================================================
           TOP BRAND SECTION
       ================================================= */}
 
-      <View style={styles.drawerHeader}>
-
+      <View
+        style={[
+          styles.drawerHeader,
+          {
+            paddingTop:
+              SPACING.xs + insets.top,
+          },
+        ]}
+      >
         <View style={styles.brandIcon}>
-
           <Ionicons
             name="school-outline"
-            size={26}
+            size={20}
             color={COLORS.primary}
           />
-
         </View>
 
-
         <View style={styles.brandTextContainer}>
-
-          <Text style={styles.brandTitle}>
+          <Text
+            style={styles.brandTitle}
+            numberOfLines={1}
+          >
             ParentConnect
           </Text>
 
-          <Text style={styles.brandSubtitle}>
+          <Text
+            style={styles.brandSubtitle}
+            numberOfLines={1}
+          >
             Parent Portal
           </Text>
-
         </View>
-
       </View>
-
 
       {/* =================================================
           MENU SECTION
       ================================================= */}
 
       <View style={styles.menuWrapper}>
-
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={
@@ -179,14 +188,11 @@ const ParentDrawerContent = (
           }
         >
 
-          {/* =============================================
-              MAIN
-          ============================================= */}
+          {/* MAIN */}
 
           <Text style={styles.sectionTitle}>
             MAIN
           </Text>
-
 
           <DrawerItem
             icon="grid-outline"
@@ -198,12 +204,10 @@ const ParentDrawerContent = (
             }
           />
 
-
           <DrawerItem
             icon="people-outline"
             label="My Childs"
             onPress={() => {
-
               props.navigation.dispatch(
                 DrawerActions.closeDrawer()
               );
@@ -212,12 +216,10 @@ const ParentDrawerContent = (
                 "ParentMainTabs",
                 {
                   screen: "Childs",
-                }
+                } as never
               );
-
             }}
           />
-
 
           <DrawerItem
             icon="calendar-outline"
@@ -229,21 +231,16 @@ const ParentDrawerContent = (
             }
           />
 
-
-          {/* =============================================
-              STUDENT OVERSIGHT
-          ============================================= */}
+          {/* STUDENT OVERSIGHT */}
 
           <Text style={styles.sectionTitle}>
             STUDENT OVERSIGHT
           </Text>
 
-
           <DrawerItem
             icon="checkmark-circle-outline"
             label="Attendance"
             onPress={() => {
-
               props.navigation.dispatch(
                 DrawerActions.closeDrawer()
               );
@@ -252,12 +249,10 @@ const ParentDrawerContent = (
                 "ParentMainTabs",
                 {
                   screen: "Attendance",
-                }
+                } as never
               );
-
             }}
           />
-
 
           <DrawerItem
             icon="document-text-outline"
@@ -269,7 +264,6 @@ const ParentDrawerContent = (
             }
           />
 
-
           <DrawerItem
             icon="card-outline"
             label="Fee Gateway"
@@ -280,15 +274,11 @@ const ParentDrawerContent = (
             }
           />
 
-
-          {/* =============================================
-              CAMPUS SERVICES
-          ============================================= */}
+          {/* CAMPUS SERVICES */}
 
           <Text style={styles.sectionTitle}>
             CAMPUS SERVICES
           </Text>
-
 
           <DrawerItem
             icon="bus-outline"
@@ -300,7 +290,6 @@ const ParentDrawerContent = (
             }
           />
 
-
           <DrawerItem
             icon="bed-outline"
             label="Hostel & Mess"
@@ -311,15 +300,11 @@ const ParentDrawerContent = (
             }
           />
 
-
-          {/* =============================================
-              ACCOUNT & CONNECT
-          ============================================= */}
+          {/* ACCOUNT & CONNECT */}
 
           <Text style={styles.sectionTitle}>
             ACCOUNT & CONNECT
           </Text>
-
 
           <DrawerItem
             icon="person-outline"
@@ -330,7 +315,14 @@ const ParentDrawerContent = (
               )
             }
           />
-
+          <Drawer.Screen
+  name="EditProfile"
+  component={EditProfileScreen}
+  options={{
+    title: 'Edit Profile',
+    headerShown: true,
+  }}
+/>
 
           <DrawerItem
             icon="chatbubbles-outline"
@@ -343,25 +335,31 @@ const ParentDrawerContent = (
           />
 
         </ScrollView>
-
       </View>
-
 
       {/* =================================================
           FIXED BOTTOM SECTION
       ================================================= */}
 
-      <View style={styles.footer}>
+      <View
+        style={[
+          styles.footer,
+          {
+            paddingBottom: Math.max(
+              insets.bottom,
+              SPACING.lg
+            ),
+          },
+        ]}
+      >
 
-        {/* ===============================================
-            SIGN OUT
-        =============================================== */}
+        {/* SIGN OUT */}
 
         <TouchableOpacity
           style={styles.signOutButton}
           activeOpacity={0.7}
+          onPress={handleSignOut}
         >
-
           <Ionicons
             name="log-out-outline"
             size={21}
@@ -371,29 +369,20 @@ const ParentDrawerContent = (
           <Text style={styles.signOutText}>
             Sign out
           </Text>
-
         </TouchableOpacity>
 
-
-        {/* ===============================================
-            USER
-        =============================================== */}
+        {/* USER */}
 
         <View style={styles.userContainer}>
-
           <View style={styles.userAvatar}>
-
             <Ionicons
               name="person"
               size={20}
               color={COLORS.white}
             />
-
           </View>
 
-
           <View style={styles.userInfo}>
-
             <Text
               style={styles.userName}
               numberOfLines={1}
@@ -407,9 +396,7 @@ const ParentDrawerContent = (
             >
               Parent Guardian
             </Text>
-
           </View>
-
         </View>
 
       </View>
@@ -418,44 +405,37 @@ const ParentDrawerContent = (
   );
 };
 
-
 // =====================================================
 // NAVIGATOR
 // =====================================================
 
 const ParentDrawerNavigator = () => {
-
   return (
-
     <Drawer.Navigator
-
       drawerContent={(props) => (
         <ParentDrawerContent
           {...props}
         />
       )}
+      
+screenOptions={({ route }) => ({
 
-      screenOptions={({ route }) => ({
+  // GLOBAL HEADER
 
-        // =================================================
-        // GLOBAL HEADER
-        // =================================================
+  header: () => (
+    <Header
+      title={
+        route.name === 'EditProfile'
+          ? 'Edit Profile'
+          : route.name
+      }
+      isHome={route.name === "ParentMainTabs"}
+    />
+  ),
 
-        header: () => (
-          <Header
-            title={route.name}
-            isHome={
-              route.name === "ParentMainTabs"
-            }
-          />
-        ),
+  headerShown: true,
 
-        headerShown: true,
-
-
-        // =================================================
         // DRAWER
-        // =================================================
 
         drawerType: "front",
 
@@ -466,7 +446,6 @@ const ParentDrawerNavigator = () => {
 
         drawerStyle: {
           width: "78%",
-
           backgroundColor:
             COLORS.white,
         },
@@ -474,118 +453,97 @@ const ParentDrawerNavigator = () => {
       })}
     >
 
-      {/* =================================================
-          MAIN TABS
-      ================================================= */}
+      {/* MAIN TABS */}
 
       <Drawer.Screen
         name="ParentMainTabs"
         component={ParentTabNavigator}
-
         options={{
           headerShown: false,
         }}
       />
 
-
-      {/* =================================================
-          TIMETABLE
-      ================================================= */}
+      {/* TIMETABLE */}
 
       <Drawer.Screen
         name="Timetable"
         component={TimetableScreen}
-
         options={{
           title: "Timetable",
           headerShown: true,
         }}
       />
 
-
-      {/* =================================================
-          REPORT CARDS
-      ================================================= */}
+      {/* REPORT CARDS */}
 
       <Drawer.Screen
         name="ReportCards"
         component={ReportCardsScreen}
-
         options={{
           title: "Report Cards",
           headerShown: true,
         }}
       />
 
-
-      {/* =================================================
-          FEE GATEWAY
-      ================================================= */}
+      {/* FEE GATEWAY */}
 
       <Drawer.Screen
         name="FeeGateway"
         component={FeeGatewayScreen}
-
         options={{
           title: "Fee Gateway",
           headerShown: true,
         }}
       />
 
-
-      {/* =================================================
-          BUS TRACKING
-      ================================================= */}
+      {/* BUS TRACKING */}
 
       <Drawer.Screen
         name="BusTracking"
         component={BusTrackingScreen}
-
         options={{
           title: "Bus Tracking",
           headerShown: true,
         }}
       />
 
-
-      {/* =================================================
-          HOSTEL & MESS
-      ================================================= */}
+      {/* HOSTEL & MESS */}
 
       <Drawer.Screen
         name="HostelMess"
         component={HostelMessScreen}
-
         options={{
           title: "Hostel & Mess",
           headerShown: true,
         }}
       />
 
-
-      {/* =================================================
-          MY PROFILE
-      ================================================= */}
+      {/* MY PROFILE */}
 
       <Drawer.Screen
         name="MyProfile"
         component={MyProfileScreen}
-
         options={{
           title: "My Profile",
           headerShown: true,
         }}
       />
+      
+<Drawer.Screen
+  name="EditProfile"
+  component={EditProfileScreen}
+  options={{
+    title: "Edit Profile",
+    headerShown: true,
+  }}
+/>
 
 
-      {/* =================================================
-          TEACHER MESSAGES
-      ================================================= */}
+      {/* TEACHER MESSAGES */}
 
       <Drawer.Screen
         name="TeacherMessages"
         component={TeacherMessagesScreen}
-
         options={{
           title: "Teacher Messages",
           headerShown: true,
@@ -596,9 +554,7 @@ const ParentDrawerNavigator = () => {
   );
 };
 
-
 export default ParentDrawerNavigator;
-
 
 // =====================================================
 // STYLES
@@ -606,32 +562,24 @@ export default ParentDrawerNavigator;
 
 const styles = StyleSheet.create({
 
-  // ===================================================
   // MAIN CONTAINER
-  // ===================================================
 
   container: {
-
     flex: 1,
-
     backgroundColor:
       COLORS.white,
   },
 
-
-  // ===================================================
   // TOP BRAND SECTION
-  // ===================================================
 
   drawerHeader: {
-
     backgroundColor:
       COLORS.dark,
 
     paddingHorizontal:
       SPACING.lg,
 
-    paddingVertical:
+    paddingBottom:
       SPACING.xl,
 
     flexDirection:
@@ -641,11 +589,8 @@ const styles = StyleSheet.create({
       "center",
   },
 
-
   brandIcon: {
-
     width: 48,
-
     height: 48,
 
     borderRadius:
@@ -664,15 +609,12 @@ const styles = StyleSheet.create({
       SPACING.md,
   },
 
-
   brandTextContainer: {
-
     flex: 1,
+    minWidth: 0,
   },
 
-
   brandTitle: {
-
     color:
       COLORS.white,
 
@@ -683,9 +625,7 @@ const styles = StyleSheet.create({
       TYPOGRAPHY.fontFamily.semiBold,
   },
 
-
   brandSubtitle: {
-
     color:
       COLORS.textOnDarkSecondary,
 
@@ -698,39 +638,26 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
 
-
-  // ===================================================
   // MENU WRAPPER
-  // ===================================================
 
   menuWrapper: {
-
     flex: 1,
-
     minHeight: 0,
   },
 
-
-  // ===================================================
   // MENU
-  // ===================================================
 
   menuContainer: {
-
     paddingTop:
-      SPACING.sm,
+      SPACING.xs,
 
     paddingBottom:
       SPACING.md,
   },
 
-
-  // ===================================================
   // SECTION TITLE
-  // ===================================================
 
   sectionTitle: {
-
     fontSize:
       TYPOGRAPHY.fontSize.xs,
 
@@ -752,13 +679,9 @@ const styles = StyleSheet.create({
       SPACING.lg,
   },
 
-
-  // ===================================================
   // DRAWER ITEM
-  // ===================================================
 
   drawerItem: {
-
     height: 48,
 
     flexDirection:
@@ -771,9 +694,7 @@ const styles = StyleSheet.create({
       SPACING.lg,
   },
 
-
   drawerItemText: {
-
     marginLeft:
       SPACING.md,
 
@@ -787,13 +708,9 @@ const styles = StyleSheet.create({
       COLORS.textPrimary,
   },
 
-
-  // ===================================================
   // FIXED FOOTER
-  // ===================================================
 
   footer: {
-
     borderTopWidth: 1,
 
     borderTopColor:
@@ -803,21 +720,16 @@ const styles = StyleSheet.create({
       SPACING.lg,
 
     paddingTop:
-      SPACING.md,
-
-    paddingBottom:
-      SPACING.lg,
+      SPACING.sm,
 
     backgroundColor:
       COLORS.white,
   },
 
-
-  // ===================================================
   // SIGN OUT
-  // ===================================================
 
   signOutButton: {
+    minHeight: 44,
 
     flexDirection:
       "row",
@@ -826,12 +738,10 @@ const styles = StyleSheet.create({
       "center",
 
     marginBottom:
-      SPACING.lg,
+      SPACING.xl,
   },
 
-
   signOutText: {
-
     marginLeft:
       SPACING.sm,
 
@@ -845,13 +755,9 @@ const styles = StyleSheet.create({
       COLORS.danger,
   },
 
-
-  // ===================================================
   // USER
-  // ===================================================
 
   userContainer: {
-
     flexDirection:
       "row",
 
@@ -859,11 +765,8 @@ const styles = StyleSheet.create({
       "center",
   },
 
-
   userAvatar: {
-
     width: 42,
-
     height: 42,
 
     borderRadius:
@@ -879,9 +782,7 @@ const styles = StyleSheet.create({
       "center",
   },
 
-
   userInfo: {
-
     marginLeft:
       SPACING.sm,
 
@@ -890,9 +791,7 @@ const styles = StyleSheet.create({
     minWidth: 0,
   },
 
-
   userName: {
-
     fontSize:
       TYPOGRAPHY.fontSize.sm,
 
@@ -903,9 +802,7 @@ const styles = StyleSheet.create({
       COLORS.textPrimary,
   },
 
-
   userRole: {
-
     fontSize:
       TYPOGRAPHY.fontSize.xs,
 
@@ -919,5 +816,3 @@ const styles = StyleSheet.create({
   },
 
 });
-
-

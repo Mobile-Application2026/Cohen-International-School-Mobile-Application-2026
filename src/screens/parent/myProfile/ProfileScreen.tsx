@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { useParent } from '../../../context/ParentContext';
 import { styles } from './style';
+import { useNavigation } from '@react-navigation/native';
 
 interface ProfileRow {
   label: string;
@@ -10,6 +11,7 @@ interface ProfileRow {
 
 const ProfileScreen = () => {
   const { parent } = useParent();
+  const navigation = useNavigation<any>();
 
   if (!parent) return null;
 
@@ -55,15 +57,13 @@ const ProfileScreen = () => {
         </View>
 
         {/* Edit profile CTA */}
-        <TouchableOpacity
-          activeOpacity={0.85}
-          style={styles.editButton}
-          onPress={() => {
-            // TODO: navigate to edit profile flow
-          }}
-        >
-          <Text style={styles.editButtonText}>Edit profile</Text>
-        </TouchableOpacity>
+       <TouchableOpacity
+  activeOpacity={0.85}
+  style={styles.editButton}
+  onPress={() => navigation.navigate('EditProfile')}
+>
+  <Text style={styles.editButtonText}>Edit profile</Text>
+</TouchableOpacity>
       </ScrollView>
     </View>
   );
